@@ -51,6 +51,7 @@
     "dist"
   ],
   "dependencies": {
-    "react-portal": "^4.2.1"
+    "react-portal": "^4.2.1",
+    "uuid": "^8.3.1"
   }
 }

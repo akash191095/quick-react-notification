@@ -1,15 +1,9 @@
-import React, {
-  createContext,
-  Fragment,
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer
-} from 'react'
+import React, { createContext, useContext, useReducer } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { Portal } from 'react-portal'
 
 const notificationTypes = {
-  showNotification: 'showNotification'
+  addNotification: 'addNotification'
 }
 
 const NotificationContext = createContext()
@@ -37,20 +31,29 @@ const NotificationContext = createContext()
 
 function notificationReducer(state, action) {
   switch (action.type) {
-    case notificationTypes.showNotification: {
+    case notificationTypes.addNotification: {
       const { message, type } = action.payload
-      return { ...state, isOpen: true, message, type }
+      return {
+        notifications: [
+          ...state.notifications,
+          { id: uuidv4(), isOpen: true, message, type }
+        ]
+      }
     }
     default:
-      return state
+      throw new Error(`'${action.type}': invalid type received.`)
   }
 }
 
 function NotificaionProvider({ children }) {
   const [state, dispatch] = useReducer(notificationReducer, {
-    message: 'Something went wrong',
-    type: 'default',
-    isOpen: false
+    notifications: [
+      // for example  {
+      //   message: 'Something went wrong',
+      //   type: 'default',
+      //   isOpen: false
+      // }
+    ]
   })
 
   function showNotification({
@@ -58,7 +61,7 @@ function NotificaionProvider({ children }) {
     message = 'Something went wrong'
   }) {
     dispatch({
-      type: notificationTypes.showNotification,
+      type: notificationTypes.addNotification,
       payload: { type, message }
     })
   }
@@ -66,7 +69,9 @@ function NotificaionProvider({ children }) {
   const value = { state, dispatch, showNotification }
   return (
     <NotificationContext.Provider value={value}>
-      <Notification />
+      {state.notifications?.map((item) => (
+        <Notification key={item.id} isOpen={item.isOpen} />
+      ))}
       {children}
     </NotificationContext.Provider>
   )
@@ -82,9 +87,11 @@ function useNotification() {
   return context
 }
 
-function Notification({ type = 'default', message = 'Something went wrong' }) {
-  const { state } = useNotification()
-  const { isOpen } = state
+function Notification({
+  type = 'default',
+  message = 'Something went wrong',
+  isOpen = true
+}) {
   return (
     isOpen && (
       <Portal>

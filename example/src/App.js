@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { useNotification } from 'quick-react-notifications'
+import { useNotification, Notification } from 'quick-react-notifications'
 
 const App = () => {
-  console.log('ran')
   const { showNotification } = useNotification()
   function testNotification() {
+    showNotification({ message: 'Your order is placed.' })
     showNotification({ message: 'Your order is placed.' })
   }
   return (
