@@ -1,9 +1,15 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useReducer
+} from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Portal } from 'react-portal'
 
-const notificationTypes = {
-  addNotification: 'addNotification'
+const types = {
+  addNotification: 'addNotification',
+  removeNotification: 'removeNotification'
 }
 
 const NotificationContext = createContext()
@@ -31,15 +37,23 @@ const NotificationContext = createContext()
 
 function notificationReducer(state, action) {
   switch (action.type) {
-    case notificationTypes.addNotification: {
-      const { message, type } = action.payload
+    case types.addNotification: {
+      const { message, type, id } = action.payload
       return {
+        ...state,
         notifications: [
           ...state.notifications,
-          { id: uuidv4(), isOpen: true, message, type }
+          { id, isOpen: true, message, type }
         ]
       }
     }
+    case types.removeNotification:
+      return {
+        ...state,
+        notifications: state.notifications.filter(
+          (item) => item.id !== action.payload.id
+        )
+      }
     default:
       throw new Error(`'${action.type}': invalid type received.`)
   }
@@ -47,30 +61,42 @@ function notificationReducer(state, action) {
 
 function NotificaionProvider({ children }) {
   const [state, dispatch] = useReducer(notificationReducer, {
-    notifications: [
-      // for example  {
-      //   message: 'Something went wrong',
-      //   type: 'default',
-      //   isOpen: false
-      // }
-    ]
+    notifications: []
   })
 
-  function showNotification({
-    type = 'default',
-    message = 'Something went wrong'
-  }) {
+  const removeNotification = useCallback((id) => {
     dispatch({
-      type: notificationTypes.addNotification,
-      payload: { type, message }
+      type: types.removeNotification,
+      payload: { id }
     })
-  }
+  }, [])
 
-  const value = { state, dispatch, showNotification }
+  const showNotification = useCallback(
+    ({
+      type = 'default',
+      message = 'Something went wrong',
+      autoHide = true,
+      hideAfter = 3000
+    }) => {
+      const id = uuidv4()
+      dispatch({
+        type: types.addNotification,
+        payload: { type, message, id }
+      })
+      if (autoHide) {
+        setTimeout(() => {
+          removeNotification(id)
+        }, hideAfter)
+      }
+    },
+    []
+  )
+
+  const value = { showNotification, removeNotification }
   return (
     <NotificationContext.Provider value={value}>
-      {state.notifications?.map((item) => (
-        <Notification key={item.id} isOpen={item.isOpen} />
+      {state.notifications?.map(({ id, isOpen }) => (
+        <Notification key={id} id={id} isOpen={isOpen} />
       ))}
       {children}
     </NotificationContext.Provider>
@@ -90,8 +116,10 @@ function useNotification() {
 function Notification({
   type = 'default',
   message = 'Something went wrong',
-  isOpen = true
+  isOpen = true,
+  id
 }) {
+  const { removeNotification } = useNotification()
   return (
     isOpen && (
       <Portal>
@@ -101,11 +129,11 @@ function Notification({
             image here
           </p>
           <p>{message}</p>
-          <button onClick={() => null}>x</button>
+          <button onClick={() => removeNotification(id)}>x</button>
         </div>
       </Portal>
     )
   )
 }
 
-export { Notification, NotificaionProvider, useNotification }
+export { NotificaionProvider, useNotification }

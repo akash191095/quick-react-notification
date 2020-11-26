@@ -1,7 +1,3 @@
-import {
-  Notification,
-  NotificaionProvider,
-  useNotification
-} from './components/Notification'
+import { NotificaionProvider, useNotification } from './components/Notification'
 
-export { Notification, NotificaionProvider, useNotification }
+export { NotificaionProvider, useNotification }
