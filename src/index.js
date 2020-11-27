@@ -1,6 +1,6 @@
 import {
-  NotificaionProvider,
+  NotificationProvider,
   useNotification
 } from './context/notification-context'
 
-export { NotificaionProvider, useNotification }
+export { NotificationProvider, useNotification }

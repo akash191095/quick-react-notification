@@ -1,12 +1,12 @@
-import { NotificaionProvider } from "../../src/index";
+import { NotificationProvider } from '../../src/index'
 
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
 
 ReactDOM.render(
-  <NotificaionProvider>
+  <NotificationProvider>
     <App />
-  </NotificaionProvider>,
-  document.querySelector("#demo")
-);
+  </NotificationProvider>,
+  document.querySelector('#demo')
+)

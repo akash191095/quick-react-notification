@@ -34,7 +34,7 @@ function notificationReducer(state, action) {
   }
 }
 
-function NotificaionProvider({ children }) {
+function NotificationProvider({ children }) {
   const [state, dispatch] = useReducer(notificationReducer, {
     notifications: []
   })
@@ -46,6 +46,11 @@ function NotificaionProvider({ children }) {
     })
   }
 
+  /**
+   * Adds a new notification
+   * @param config Customise Notification.
+   * @param config.type ["success", "warning", "info", "error"] Customise Notification.
+   */
   function showNotification({
     type = 'error',
     message = 'Something went wrong',
@@ -111,4 +116,4 @@ function useNotification() {
   return context
 }
 
-export { NotificaionProvider, useNotification }
+export { NotificationProvider, useNotification }

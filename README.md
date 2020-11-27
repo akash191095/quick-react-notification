@@ -8,16 +8,16 @@
 
 ### How to use
 
-#### Use "NotificaionProvider" as the root wrapper.
+#### Use "NotificationProvider" as the root wrapper.
 
 ```
-import { NotificaionProvider } from "quick-react-notification";
+import { NotificationProvider } from "quick-react-notification";
 
 ReactDOM.render(
   <React.StrictMode>
-    <NotificaionProvider>
+    <NotificationProvider>
       <App />
-    </NotificaionProvider>
+    </NotificationProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
