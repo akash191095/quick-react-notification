@@ -47,7 +47,7 @@ function NotificaionProvider({ children }) {
   }
 
   function showNotification({
-    type = 'default',
+    type = 'error',
     message = 'Something went wrong',
     autoHide = true,
     hideAfter = 3000

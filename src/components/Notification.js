@@ -35,12 +35,7 @@ function getNotificationData(type) {
   }
 }
 
-function Notification({
-  type = 'default',
-  message = 'Something went wrong',
-  isOpen = true,
-  id
-}) {
+function Notification({ type, message, isOpen, id }) {
   const { removeNotification } = useNotification()
   const { backgroundColor, src } = getNotificationData(type)
   return (

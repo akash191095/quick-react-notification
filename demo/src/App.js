@@ -7,6 +7,7 @@ const App = () => {
 
   useEffect(() => {
     showNotification({
+      type: 'success',
       message: 'Your order is placed.',
       autoHide: false
     })
