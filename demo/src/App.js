@@ -8,18 +8,15 @@ const App = () => {
   useEffect(() => {
     showNotification({
       type: 'success',
-      message: 'Your order is placed.',
-      autoHide: false
+      message: 'Your order is placed.'
     })
     showNotification({
       type: 'error',
-      message: 'Connection not found!',
-      autoHide: false
+      message: 'Connection not found!'
     })
     showNotification({
       type: 'warning',
-      message: 'Please make sure input is not empty.',
-      autoHide: false
+      message: 'Please make sure input is not empty.'
     })
     showNotification({
       type: 'info',
@@ -28,16 +25,19 @@ const App = () => {
     })
   }, [showNotification])
 
-  function testNotification() {
+  function onNotificationClick(type) {
     showNotification({
-      type: 'error',
-      hideAfter: 1500
+      type,
+      message: `This is a notification of type: ${type}`
     })
   }
   return (
     <div>
-      <h2>This is my example app.</h2>
-      <button onClick={testNotification}>See notification</button>
+      <h2>quick-react-notification</h2>
+      <button onClick={() => onNotificationClick('success')}>Success</button>
+      <button onClick={() => onNotificationClick('info')}>Info</button>
+      <button onClick={() => onNotificationClick('warning')}>Warning</button>
+      <button onClick={() => onNotificationClick('error')}>Error</button>
       <div style={{ height: '150vh' }}>scroll div</div>
     </div>
   )
