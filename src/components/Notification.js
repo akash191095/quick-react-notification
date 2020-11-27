@@ -1,11 +1,7 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useReducer
-} from 'react'
+import React, { createContext, useContext, useMemo, useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Portal } from 'react-portal'
+import normal from '../assets/normal.svg'
 
 const types = {
   addNotification: 'addNotification',
@@ -14,26 +10,22 @@ const types = {
 
 const NotificationContext = createContext()
 
-// function stylesReducer(state, action) {
-//   switch (action.type) {
-//     case 'default':
-//       return {
-//         ...state,
-//         backgroundColor: 'white',
-//         src: '../assets/normal.svg',
-//         alt: 'normal notification'
-//       }
-//     case 'error':
-//       return {
-//         ...state,
-//         backgroudColor: 'red',
-//         src: '../assets/error.svg',
-//         alt: 'error notification'
-//       }
-//     default:
-//       return state
-//   }
-// }
+function getNotificationData(type) {
+  switch (type) {
+    case 'error':
+      return {
+        backgroundColor: 'red',
+        src: '../assets/error.svg',
+        alt: 'error notification'
+      }
+    default:
+      return {
+        backgroundColor: 'white',
+        src: '../assets/normal.svg',
+        alt: 'normal notification'
+      }
+  }
+}
 
 function notificationReducer(state, action) {
   switch (action.type) {
@@ -64,35 +56,39 @@ function NotificaionProvider({ children }) {
     notifications: []
   })
 
-  const removeNotification = useCallback((id) => {
+  function removeNotification(id) {
     dispatch({
       type: types.removeNotification,
       payload: { id }
     })
-  }, [])
+  }
 
-  const showNotification = useCallback(
-    ({
-      type = 'default',
-      message = 'Something went wrong',
-      autoHide = true,
-      hideAfter = 3000
-    }) => {
-      const id = uuidv4()
-      dispatch({
-        type: types.addNotification,
-        payload: { type, message, id }
-      })
-      if (autoHide) {
-        setTimeout(() => {
-          removeNotification(id)
-        }, hideAfter)
-      }
-    },
+  function showNotification({
+    type = 'default',
+    message = 'Something went wrong',
+    autoHide = true,
+    hideAfter = 3000
+  }) {
+    const id = uuidv4()
+    dispatch({
+      type: types.addNotification,
+      payload: { type, message, id }
+    })
+    if (autoHide) {
+      setTimeout(() => {
+        removeNotification(id)
+      }, hideAfter)
+    }
+  }
+
+  const value = useMemo(
+    () => ({
+      showNotification,
+      removeNotification
+    }),
     []
   )
 
-  const value = { showNotification, removeNotification }
   return (
     <NotificationContext.Provider value={value}>
       {state.notifications?.map(({ id, isOpen }) => (
@@ -120,14 +116,12 @@ function Notification({
   id
 }) {
   const { removeNotification } = useNotification()
+  const { backgroundColor, alt, src } = getNotificationData(type)
   return (
     isOpen && (
       <Portal>
-        <div style={{ backgroundColor: 'white' }}>
-          <p>
-            {/* src:{state.src} alt:{state.alt} */}
-            image here
-          </p>
+        <div style={{ backgroundColor }}>
+          <img src={normal} alt={alt} />
           <p>{message}</p>
           <button onClick={() => removeNotification(id)}>x</button>
         </div>
