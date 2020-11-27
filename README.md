@@ -1,5 +1,11 @@
 # quick-react-notification
 
+### Example Demo App
+
+##### [https://akash191095.github.io/quick-react-notifications/](https://akash191095.github.io/quick-react-notifications/)
+
+<br>
+
 ### How to use
 
 #### Use "NotificaionProvider" as the root wrapper.
