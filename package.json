@@ -1,8 +1,12 @@
 {
   "name": "quick-react-notification",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "quick-react-notification React component",
-  "homepage": "",
+  "homepage": "http://akash191095.github.io/quick-react-notifications",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akash191095/quick-react-notification.git"
+  },
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -52,8 +56,9 @@
   },
   "author": "",
   "license": "MIT",
-  "repository": "",
   "keywords": [
-    "react-component"
+    "react-notification",
+    "notifications",
+    "react notification"
   ]
 }
