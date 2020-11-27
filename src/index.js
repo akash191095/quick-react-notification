@@ -1,3 +1,6 @@
-import { NotificaionProvider, useNotification } from './components/Notification'
+import {
+  NotificaionProvider,
+  useNotification
+} from './context/notification-context'
 
 export { NotificaionProvider, useNotification }
