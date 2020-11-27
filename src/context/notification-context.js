@@ -75,7 +75,16 @@ function NotificaionProvider({ children }) {
   return (
     <NotificationContext.Provider value={value}>
       <Portal>
-        <div style={{ position: 'fixed', top: '10px', right: '10px' }}>
+        <div
+          style={{
+            position: 'fixed',
+            top: '10px',
+            right: '10px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end'
+          }}
+        >
           {state.notifications?.map(({ id, isOpen, message, type }) => (
             <Notification
               key={id}

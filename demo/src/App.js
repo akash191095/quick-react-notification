@@ -7,19 +7,30 @@ const App = () => {
 
   useEffect(() => {
     showNotification({
-      type: 'default',
       message: 'Your order is placed.',
-      autoHide: false,
-      hideAfter: 1500
+      autoHide: false
+    })
+    showNotification({
+      type: 'error',
+      message: 'Connection not found!',
+      autoHide: false
+    })
+    showNotification({
+      type: 'warning',
+      message: 'Please make sure input is not empty.',
+      autoHide: false
+    })
+    showNotification({
+      type: 'info',
+      message: 'Subscription will end in 3 days.',
+      autoHide: false
     })
   }, [showNotification])
 
   function testNotification() {
     showNotification({
       type: 'error',
-      message: 'Your order is placed.',
-      hideAfter: 1500,
-      autoHide: false
+      hideAfter: 1500
     })
   }
   return (
