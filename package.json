@@ -1,7 +1,7 @@
 {
-  "name": "quick-react-components",
+  "name": "quick-react-notification",
   "version": "1.0.0",
-  "description": "quick-react-components React component",
+  "description": "quick-react-notification React component",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
