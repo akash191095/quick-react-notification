@@ -59,7 +59,8 @@ function Notification({ type, message, isOpen, id }) {
             background: 'none',
             border: 'none',
             display: 'flex',
-            padding: 0
+            padding: 0,
+            cursor: 'pointer'
           }}
           onClick={() => removeNotification(id)}
         >
