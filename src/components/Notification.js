@@ -10,7 +10,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useNotification } from '../context/notification-context'
 
-function getNotificationData(type) {
+function getNotificationData(type, extendTypes) {
+  if (extendTypes) {
+    const data = extendTypes(type)
+    if (data) return data
+  }
   switch (type) {
     case 'error':
       return {
@@ -35,9 +39,9 @@ function getNotificationData(type) {
   }
 }
 
-function Notification({ type, message, isOpen, id }) {
+function Notification({ type, message, isOpen, id, extendTypes }) {
   const { removeNotification } = useNotification()
-  const { backgroundColor, src } = getNotificationData(type)
+  const { backgroundColor, src } = getNotificationData(type, extendTypes)
   return (
     isOpen && (
       <div

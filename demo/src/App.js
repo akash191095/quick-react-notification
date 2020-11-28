@@ -32,12 +32,22 @@ const App = () => {
     })
   }
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'center'
+      }}
+    >
       <h2>quick-react-notification</h2>
       <button onClick={() => onNotificationClick('success')}>Success</button>
       <button onClick={() => onNotificationClick('info')}>Info</button>
       <button onClick={() => onNotificationClick('warning')}>Warning</button>
       <button onClick={() => onNotificationClick('error')}>Error</button>
+      <button onClick={() => onNotificationClick('lvl-5-error')}>
+        Custom notification type
+      </button>
       <div style={{ height: '150vh' }}>scroll div</div>
     </div>
   )

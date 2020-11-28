@@ -34,7 +34,7 @@ function notificationReducer(state, action) {
   }
 }
 
-function NotificationProvider({ children }) {
+function NotificationProvider({ children, extendTypes = null }) {
   const [state, dispatch] = useReducer(notificationReducer, {
     notifications: []
   })
@@ -97,6 +97,7 @@ function NotificationProvider({ children }) {
               type={type}
               message={message}
               isOpen={isOpen}
+              extendTypes={extendTypes}
             />
           ))}
         </div>
