@@ -57,7 +57,7 @@ message: text message to show, needs a string value.
 
 ### How to extend and customise notification types
 
-#### Use NotificationProvider's extentType prop
+#### Use NotificationProvider's extendTypes prop
 
 ```
 // Provide a pure function that takes in a type and return's both backgroundColor and a fontAwesome icon
