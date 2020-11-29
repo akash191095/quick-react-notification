@@ -51,6 +51,12 @@ hideAfter: The auto hide duration in miliseconds.
 type: type of notification, currently have "success", "info", "warning", "error" available, needs a string value.
 
 message: text message to show, needs a string value.
+
+textColor: color of the message text.
+
+iconColor: color of the icon.
+
+closeColor: color of the close icon.
 ```
 
 <br>
@@ -68,7 +74,7 @@ import { faBomb } from '@fortawesome/free-solid-svg-icons'
 function extendNotificationTypes(type) {
   switch (type) {
     case 'lvl-5-error':
-      return { backgroundColor: '#f05454', src: faBomb }
+      return { backgroundColor: '#f05454', src: faBomb, autoHide: false }
     default:
       return null
   }
