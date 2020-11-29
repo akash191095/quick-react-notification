@@ -2,7 +2,7 @@
 
 ### Example Demo App
 
-##### [https://akash191095.github.io/quick-react-notifications/](https://akash191095.github.io/quick-react-notifications/)
+##### [https://akash191095.github.io/quick-react-notification/](https://akash191095.github.io/quick-react-notification/)
 
 <br>
 
