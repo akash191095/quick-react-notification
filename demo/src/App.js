@@ -12,7 +12,10 @@ const App = () => {
     })
     showNotification({
       type: 'error',
-      message: 'Connection not found!'
+      message: 'Connection not found!',
+      textColor: 'white',
+      iconColor: 'white',
+      closeColor: 'white'
     })
     showNotification({
       type: 'warning',

@@ -8,7 +8,14 @@ import App from './App'
 function extendNotificationTypes(type) {
   switch (type) {
     case 'lvl-5-error':
-      return { backgroundColor: '#f05454', src: faBomb }
+      return {
+        backgroundColor: '#f05454',
+        src: faBomb,
+        textColor: 'white',
+        iconColor: 'white',
+        closeColor: 'white',
+        autoHide: false
+      }
     default:
       return null
   }

@@ -1,47 +1,31 @@
 /* eslint-disable no-func-assign */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCheckCircle,
-  faInfoCircle,
-  faExclamationCircle,
-  faExclamationTriangle,
-  faTimes
-} from '@fortawesome/free-solid-svg-icons'
-import { useNotification } from '../context/notification-context'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
-function getNotificationData(type, extendTypes) {
-  if (extendTypes) {
-    const data = extendTypes(type)
-    if (data) return data
-  }
-  switch (type) {
-    case 'error':
-      return {
-        backgroundColor: '#f8615a',
-        src: faExclamationTriangle
-      }
-    case 'warning':
-      return {
-        backgroundColor: '#ffd369',
-        src: faExclamationCircle
-      }
-    case 'info':
-      return {
-        backgroundColor: '#f4f9f4',
-        src: faInfoCircle
-      }
-    default:
-      return {
-        backgroundColor: '#adce74',
-        src: faCheckCircle
-      }
-  }
-}
+function Notification({
+  type,
+  message,
+  isOpen,
+  id,
+  extendTypes,
+  textColor,
+  iconColor,
+  closeColor,
+  backgroundColor,
+  autoHide,
+  hideAfter,
+  src,
+  removeNotification
+}) {
+  useEffect(() => {
+    if (autoHide) {
+      setTimeout(() => {
+        removeNotification(id)
+      }, hideAfter)
+    }
+  }, [])
 
-function Notification({ type, message, isOpen, id, extendTypes }) {
-  const { removeNotification } = useNotification()
-  const { backgroundColor, src } = getNotificationData(type, extendTypes)
   return (
     isOpen && (
       <div
@@ -56,8 +40,10 @@ function Notification({ type, message, isOpen, id, extendTypes }) {
           margin: '5px 0'
         }}
       >
-        <FontAwesomeIcon icon={src} />
-        <p style={{ margin: '0 10px', fontSize: '14px' }}>{message}</p>
+        <FontAwesomeIcon color={iconColor} icon={src} />
+        <p style={{ margin: '0 10px', fontSize: '14px', color: textColor }}>
+          {message}
+        </p>
         <button
           style={{
             background: 'none',
@@ -68,7 +54,7 @@ function Notification({ type, message, isOpen, id, extendTypes }) {
           }}
           onClick={() => removeNotification(id)}
         >
-          <FontAwesomeIcon icon={faTimes} />
+          <FontAwesomeIcon icon={faTimes} color={closeColor} />
         </button>
       </div>
     )
